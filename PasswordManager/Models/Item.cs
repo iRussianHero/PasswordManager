@@ -8,5 +8,7 @@
         public string Password { get; set; }
         public string Email { get; set; }
 
+        public int TypeId { get; set; }
+        public Type Type { get; set; }
     }
 }
