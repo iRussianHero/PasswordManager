@@ -6,7 +6,6 @@ namespace PasswordManager.Models
     {
         public ManagerDbContext(DbContextOptions options) : base(options)
         {
-
         }
 
         public DbSet<Item> Items { get; set; }
