@@ -28,9 +28,16 @@
     </div>
     <div class="form-group">
         <label asp-for="TypeId"></label>
-        <input asp-for="TypeId" class="form-control" />
+        <select name="TypeId" id="types" asp-items="@ViewBag.Types" class="form-control"></select>
     </div>
     <div class="p-2">
         <button type="submit" id="ok" class="btn btn-primary btn-lg">Add</button>
     </div>
 </form>
+
+@section Scripts{
+    <script src="/lib/chosen/chosen.jquery.js"></script>
+    <script>
+        $("#types").chosen();
+    </script>
+}

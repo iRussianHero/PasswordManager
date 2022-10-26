@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PasswordManager.Models;
 using System.Diagnostics;
+using Type = PasswordManager.Models.Type;
 
 namespace PasswordManager.Controllers
 {
@@ -18,11 +20,12 @@ namespace PasswordManager.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_managerDbContext.Items.ToList());
         }
 
         public IActionResult Add()
         {
+            ViewBag.Types = new SelectList(_managerDbContext.Types, "Id", "Name");
             return View();
         }
 
@@ -30,6 +33,7 @@ namespace PasswordManager.Controllers
         {
             _managerDbContext.Items.AddAsync(item);
             await _managerDbContext.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 

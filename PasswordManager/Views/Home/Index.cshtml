@@ -1,8 +1,36 @@
-﻿@{
+﻿@model List<Item>
+@{
     ViewData["Title"] = "Home Page";
+    int count = 1;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Login</th>
+            <th scope="col">Password</th>
+            <th scope="col">Email</th>
+            <th scope="col">Type</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <th scope="row">@(count++)</th>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Login</td>
+                <td>@item.Password</td>
+                <td>@item.Email</td>
+                <td>@item.Type</td>
+@*                <td><a asp-action="Edit" asp-controller="Post" asp-route-id="@item.Id.ToString()" class="edit btn-warning">Edit</a></td>
+                <td><a asp-action="Delete" asp-controller="Post" asp-route-id="@item.Id.ToString()" class="delete btn-danger">Delete</a></td>*@
+            </tr>
+        }
+    </tbody>
+</table>
