@@ -6,10 +6,13 @@ namespace PasswordManager.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ManagerDbContext _managerDbContext;
+
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ManagerDbContext managerDbContext, ILogger<HomeController> logger)
         {
+            _managerDbContext = managerDbContext;
             _logger = logger;
         }
 
@@ -21,6 +24,13 @@ namespace PasswordManager.Controllers
         public IActionResult Add()
         {
             return View();
+        }
+
+        public async Task<IActionResult> AddNew(Item item)
+        {
+            _managerDbContext.Items.AddAsync(item);
+            await _managerDbContext.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
