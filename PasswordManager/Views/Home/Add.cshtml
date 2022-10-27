@@ -31,7 +31,11 @@
         <select name="TypeId" id="types" asp-items="@ViewBag.Types" class="form-control"></select>
     </div>
     <div class="p-2">
-        <button type="submit" id="ok" class="btn btn-primary btn-lg">Add</button>
+        @*<button type="submit" id="ok" class="btn btn-primary btn-lg">Add</button>*@
+        <div class="d-grid gap-2">
+            <button type="submit" id="ok" class="btn btn-primary">Add</button>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-primary" type="button">Cancel</a>
+        </div>
     </div>
 </form>
 
