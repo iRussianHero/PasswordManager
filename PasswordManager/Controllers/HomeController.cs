@@ -21,6 +21,7 @@ namespace PasswordManager.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Types = new SelectList(_managerDbContext.Types, "Id", "Name");
             return View(_managerDbContext.Items.ToList());
         }
 
@@ -34,6 +35,12 @@ namespace PasswordManager.Controllers
         public IActionResult Add()
         {
             ViewBag.Types = new SelectList(_managerDbContext.Types, "Id", "Name");
+            return View();
+        }
+
+        public IActionResult Find(string name)
+        {
+            ViewBag.Name = FindByName(name);
             return View();
         }
 
@@ -93,6 +100,14 @@ namespace PasswordManager.Controllers
             Item item = new Item();
             return item = _managerDbContext.Items
                 .Where(o => o.Id.ToString() == id)
+                .FirstOrDefault();
+        }
+
+        public Item FindByName(string name)
+        {
+            Item item = new Item();
+            return item = _managerDbContext.Items
+                .Where(o => o.Name.ToString() == name)
                 .FirstOrDefault();
         }
     }

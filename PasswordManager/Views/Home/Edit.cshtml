@@ -35,7 +35,7 @@
         <input asp-for="Type" class="form-control" value="@Model.Type" />*@
         <label asp-for="TypeId"></label>
         <select name="TypeId" id="types" asp-items="@ViewBag.Types" class="form-control">
-            <option selected>@Model.Type.Name</option>
+          @*  <option selected>@Model.Type.Name</option>*@
         </select>
     </div>
 

@@ -27,7 +27,8 @@
                 <td>@item.Login</td>
                 <td>@item.Password</td>
                 <td>@item.Email</td>
-                <td>@item.Type</td>
+                <td>@item.TypeId</td>
+                @*<td>@item.Type</td>*@
                 <td><a asp-action="Edit" asp-controller="Home" asp-route-id="@item.Id.ToString()" class="edit btn btn-secondary">Edit</a></td>
                 <td><a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id.ToString()" class="delete btn btn-secondary">Delete</a></td>
             </tr>
