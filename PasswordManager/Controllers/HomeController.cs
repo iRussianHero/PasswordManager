@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using PasswordManager.Models;
 using System.Diagnostics;
@@ -103,12 +104,10 @@ namespace PasswordManager.Controllers
                 .FirstOrDefault();
         }
 
-        public Item FindByName(string name)
+        public List<Item> FindByName(string name)
         {
-            Item item = new Item();
-            return item = _managerDbContext.Items
-                .Where(o => o.Name.ToString() == name)
-                .FirstOrDefault();
+            var users = _managerDbContext.Items.Where(p => EF.Functions.Like(p.Name, name)).ToList();
+            return users;
         }
     }
 }
