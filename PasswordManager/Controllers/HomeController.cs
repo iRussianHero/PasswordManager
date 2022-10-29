@@ -23,11 +23,12 @@ namespace PasswordManager.Controllers
         public IActionResult Index()
         {
             ViewBag.Types = new SelectList(_managerDbContext.Types, "Id", "Name");
-            return View(_managerDbContext.Items.ToList());
+            return View(_managerDbContext.Items.Include(x => x.Type).ToList());
+            //.Items.Include(x => x.Type).ThenInclude() - для множества
         }
 
 
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             await DeleteById(id);
             return View("Index", _managerDbContext.Items.ToList());
@@ -45,14 +46,15 @@ namespace PasswordManager.Controllers
             return View();
         }
 
-        public IActionResult Edit(string id)
+        public IActionResult Edit(int id)
         {
-            ViewBag.Types = new SelectList(_managerDbContext.Types, "Id", "Name");
             Item item = FindById(id);
+            var list = _managerDbContext.Types;
+            ViewBag.Types = new SelectList(list, "Id", "Name", list.FirstOrDefault(x => x.Id == id).Id); //4-ый оператор означает выбранные элементы
             return View(item);
         }
 
-        public async Task<IActionResult> Update(Item item, string id)
+        public async Task<IActionResult> Update(Item item, int id)
         {
             Item oldItem = FindById(id);
             oldItem.Name = item.Name;
@@ -86,7 +88,7 @@ namespace PasswordManager.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> DeleteById(string id)
+        public async Task<IActionResult> DeleteById(int id)
         {
             Item item = FindById(id);
 
@@ -96,11 +98,11 @@ namespace PasswordManager.Controllers
             return RedirectToAction("Index");
         }
 
-        public Item FindById(string id)
+        public Item FindById(int id)
         {
             Item item = new Item();
             return item = _managerDbContext.Items
-                .Where(o => o.Id.ToString() == id)
+                .Where(o => o.Id == id)
                 .FirstOrDefault();
         }
 
